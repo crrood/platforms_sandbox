@@ -1,20 +1,9 @@
-# utilities
-import json, configparser
-import requests
-
 # Flask
-from flask import Flask
-from flask_cors import CORS
-from werkzeug.datastructures import Headers
+from flask import Flask, render_template, send_from_directory, request
 
 # utilities for sending requests
 from ServerUtils import ServerUtils
 utils = ServerUtils("Flask")
-
-# load configuration
-parser = configparser.ConfigParser()
-parser.read("config.ini")
-config = parser["config"]
 
 # flask app
 app = Flask(__name__)
@@ -26,18 +15,36 @@ def index():
     Main page
     """
     utils.logger.info("receiving request to /")
-    return "Hello World!"
+    return render_template("index.html")
 
-@app.route("/testRequest")
-def test_request():
+@app.route("/forwardRequest", methods=["POST"])
+def forward_request():
     """
-    Send a test request to postman-echo
-    to make sure everything is working with ServerUtils
+    Forward a POST request from the client to the URL specified
     """
-    utils.logger.info("sending test request")
-    result = utils.send_request("https://postman-echo.com/post", {"foo": "bar"})
-    utils.logger.info(result)
+    json_data = request.get_json(force=True)
+
+    # extract url from request data
+    url = json_data["endpoint"]
+    del json_data["endpoint"]
+    utils.logger.info("forwarding request to %s", url)
+
+    result = utils.send_request(url, json_data)
     return result
+
+@app.route("/js/<path:path>")
+def send_js(path):
+    """
+    Serve static js files
+    """
+    return send_from_directory("js", path)
+
+@app.route("/css/<path:path>")
+def send_css(path):
+    """
+    Serve static css files
+    """
+    return send_from_directory("css", path)
 
 if __name__ == '__main__':
     app.run(debug=True)
