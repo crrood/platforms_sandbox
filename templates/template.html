@@ -1,23 +1,37 @@
 {% extends "layout.html" %}
+
+{% macro input(name, value) %}
+  {{name}}:<input type="text" id="{{name}}Input" value="{{value}}" /><br>
+{% endmacro %}
+
 {% block paymentForm %}
-<h3>Make a split payment</h3>
-<div class="">
-  <div class="client-form">
-    <p><b>Account Holder Split</b></p>
-    Amount: <input type="text" id="valueInput" name="value" value="1000" /><br>
-    Currency: <input type="text" id="currencyInput" name="currency" value="USD" /><br>
-    CountryCode: <input type="text" id="countryCodeInput" name="countryCode" value="US" /><br>
-    ShopperLocale: <input type="text" id="shopperLocaleInput" name="shopperLocale" value="en_GB" /><br>
-    ShopperReference: <input type="text" id="shopperReferenceInput" name="shopperReference" value="DropinShopper" /><br>
+  <div>
+    <h3>Make a split payment</h3>
+    <div class="">
+      <div class="client-form">
+        <p><b>Account Holder Split</b></p>
+        {{ input("Amount", "1000") }}
+        {{ input("Currency", "USD") }}
+        {{ input("AccountCode", "") }}
+      </div>
+      <div class="client-form">
+        <p><b>Liable Account Split</b></p>
+        {{ input("Amount", "1000") }}
+        {{ input("Currency", "USD") }}
+      </div>
+    </div>
+    <button id="payBtn">Pay</button>
   </div>
-  <div class="client-form">
-    <p><b>Liable Account Split</b></p>
-    Amount: <input type="text" id="valueInput" name="value" value="1000" /><br>
-    Currency: <input type="text" id="currencyInput" name="currency" value="USD" /><br>
-    CountryCode: <input type="text" id="countryCodeInput" name="countryCode" value="US" /><br>
-    ShopperLocale: <input type="text" id="shopperLocaleInput" name="shopperLocale" value="en_GB" /><br>
-    ShopperReference: <input type="text" id="shopperReferenceInput" name="shopperReference" value="DropinShopper" /><br>
-  </div>
-</div>
-<button id="payBtn">Pay</button>
+{% endblock %}
+
+{% macro accountHolder(accountHolderData) %}
+  {{ accountHolderData }}
+{% endmacro %}
+
+{% block accountHolderBlock %}
+  {% for accountHolderData in accountHoldersList %}
+    <div class="accountHolderData">
+      {{ accountHolder(accountHolderData) }}
+    </div>
+  {% endfor %}
 {% endblock %}

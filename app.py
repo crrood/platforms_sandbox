@@ -15,7 +15,7 @@ def index():
     Main page
     """
     utils.logger.info("receiving request to /")
-    return render_template("template.html")
+    return render_template("template.html", accountHoldersList=[1,2])
 
 @app.route("/forwardRequest", methods=["POST"])
 def forward_request():
@@ -33,14 +33,14 @@ def forward_request():
     return result
 
 @app.route("/js/<path:path>")
-def send_js(path):
+def serve_js(path):
     """
     Serve static js files
     """
     return send_from_directory("js", path)
 
 @app.route("/css/<path:path>")
-def send_css(path):
+def serve_css(path):
     """
     Serve static css files
     """
