@@ -15,7 +15,7 @@ def index():
     Main page
     """
     utils.logger.info("receiving request to /")
-    return render_template("index.html")
+    return render_template("template.html")
 
 @app.route("/forwardRequest", methods=["POST"])
 def forward_request():
