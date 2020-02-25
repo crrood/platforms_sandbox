@@ -1,4 +1,3 @@
-#!/usr/local/adyen/python/bin/python3
 """
 utilities for sending / receiving requests
 

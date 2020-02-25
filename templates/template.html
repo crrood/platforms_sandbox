@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 
-{% macro input(name, value) %}
-  {{name}}:<input type="text" id="{{name}}Input" value="{{value}}" /><br>
+{% macro input(name, value, label="") %}
+  {% if label == "" %}{% set label = name %}{% endif %}
+  {{ label }}: <input type="text" id="{{ name }}Input" value="{{ value }}" /><br>
 {% endmacro %}
 
 {% block paymentForm %}
@@ -10,14 +11,14 @@
     <div class="">
       <div class="client-form">
         <p><b>Account Holder Split</b></p>
-        {{ input("Amount", "1000") }}
-        {{ input("Currency", "USD") }}
+        {{ input("SplitAmount", "1000", "Amount") }}
+        {{ input("SplitCurrency", "USD", "Currency") }}
         {{ input("AccountCode", "") }}
       </div>
       <div class="client-form">
         <p><b>Liable Account Split</b></p>
-        {{ input("Amount", "1000") }}
-        {{ input("Currency", "USD") }}
+        {{ input("CommissionAmount", "1000", "Amount") }}
+        {{ input("CommissionCurrency", "USD", "Currency") }}
       </div>
     </div>
     <button id="payBtn">Pay</button>

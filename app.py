@@ -1,9 +1,12 @@
 # Flask
 from flask import Flask, render_template, send_from_directory, request
 
+# utilities for working with persistent data
+import DBUtils
+
 # utilities for sending requests
 from ServerUtils import ServerUtils
-utils = ServerUtils("Flask")
+server_utils = ServerUtils("Flask")
 
 # flask app
 app = Flask(__name__)
@@ -14,8 +17,10 @@ def index():
     """
     Main page
     """
-    utils.logger.info("receiving request to /")
-    return render_template("template.html", accountHoldersList=[1,2])
+    server_utils.logger.info("receiving request to /")
+    return render_template(
+        "template.html",
+        accountHoldersList=DBUtils.get_all_account_holders())
 
 @app.route("/forwardRequest", methods=["POST"])
 def forward_request():
@@ -27,9 +32,9 @@ def forward_request():
     # extract url from request data
     url = json_data["endpoint"]
     del json_data["endpoint"]
-    utils.logger.info("forwarding request to %s", url)
+    server_utils.logger.info("forwarding request to %s", url)
 
-    result = utils.send_request(url, json_data)
+    result = server_utils.send_request(url, json_data)
     return result
 
 @app.route("/js/<path:path>")
