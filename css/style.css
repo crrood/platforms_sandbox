@@ -192,12 +192,11 @@ button:disabled {
 /*****************/
 .right-column {
 	position: absolute;
-	width: 50%;
+	width: 49%;
 	top: 0%;
 	left: 50%;
 
 	padding-left: 10px;
-	padding-right: 10px;
 }
 
 .left-column {
@@ -220,4 +219,12 @@ body.dark .right-column {
 
 .fixed {
 	position: fixed;
+}
+
+	/*******************/
+ /* ACCOUNT HOLDERS */
+/*******************/
+.account-holder {
+	border: 1px solid black;
+	padding: 10px;
 }

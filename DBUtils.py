@@ -18,7 +18,7 @@ def read_account_holder(account_holder_code):
     Return dict from json file for given accountHolder code
     """
     try:
-        with open(f"db/{account_holder_code}", "r") as json_file:
+        with open(f"db/AccountHolders/{account_holder_code}", "r") as json_file:
             return json.loads(json_file.read())
     except FileNotFoundError:
         return "invalid accountHolder code"
@@ -27,4 +27,4 @@ def get_account_holders_list():
     """
     Return list of all accountHolder codes stored locally
     """
-    return os.listdir("db")
+    return os.listdir("db/AccountHolders")

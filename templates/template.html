@@ -26,12 +26,16 @@
 {% endblock %}
 
 {% macro accountHolder(accountHolderData) %}
-  {{ accountHolderData }}
+  <h3>{{ accountHolderData.accountHolderCode }}</h3>
+  {% for account in accountHolderData.accounts %}
+    {{ account }}
+  {% endfor %}
+
 {% endmacro %}
 
 {% block accountHolderBlock %}
   {% for accountHolderData in accountHoldersList %}
-    <div class="accountHolderData">
+    <div class="account-holder">
       {{ accountHolder(accountHolderData) }}
     </div>
   {% endfor %}
