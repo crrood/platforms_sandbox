@@ -1,3 +1,6 @@
+# utilities
+import json
+
 # Flask
 from flask import Flask, render_template, send_from_directory, request
 
@@ -43,14 +46,44 @@ def refresh():
     """
     Query updated data on all stored entities
     """
+    # query Adyen for current data on all stored AccountHolders
     account_holders_data = []
+    account_data = {}
     for account_holder_code in AccountHolders.list():
         result = server_utils.send_request(
             ServerUtils.URLS["get_account_holder"],
             {"accountHolderCode": account_holder_code})
-        account_holders_data.append(result["response"])
-    server_utils.logger.info(account_holders_data)
-    return {"accountHolders": account_holders_data}
+        data = result["response"]
+
+        # save account data to be used when refreshing account info
+        for account in data["accounts"]:
+            account_data[account["accountCode"]] = account
+
+        # update stored data and create a list to return to client
+        AccountHolders.write(data["accountHolderCode"], json.dumps(data))
+        account_holders_data.append(data)
+
+    # query Adyen for current data on all stored Accounts
+    #
+    # note that there is not a single API call to get all information
+    # so you need to join the /getAccountHolder response with
+    # the /accountHolderBalance response
+    for account_holder_code in AccountHolders.list():
+        result = server_utils.send_request(
+            ServerUtils.URLS["account_holder_balance"],
+            {"accountHolderCode": account_holder_code})
+
+        # add balances to existing account data
+        for account in result["response"]["balancePerAccount"]:
+            account_data[account["accountCode"]].update(account)
+
+            # write to disk
+            Accounts.write(account["accountCode"], json.dumps(account_data[account["accountCode"]]))
+
+    return {
+        "AccountHolders": account_holders_data,
+        "Accounts": account_data
+    }
 
 @app.route("/js/<path:path>")
 def serve_js(path):

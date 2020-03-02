@@ -91,13 +91,13 @@ class ServerUtils():
             response = urlopen(request)
             result = response.read()
 
-            self.logger.info("response data: %s", result)
-
             # format and return response
             if "application/json" in response.getheader("content-type"):
                 result = json.loads(result.decode("utf8"))
             elif isinstance(result, bytes):
                 result = result.decode("utf8")
+
+            self.logger.info("response data: %s", result)
         except HTTPError as e:
             self.logger.warning("HTTPError")
             result = "{}".format(e)

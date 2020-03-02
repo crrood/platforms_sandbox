@@ -24,11 +24,16 @@ class DBUtils():
         """
         Return dict from json file for given entity ID
         """
+        file_path = f"db/{cls.__name__}/{entity_id}"
+        if not os.path.exists(file_path) or os.stat(file_path).st_size == 0:
+            return f"file does not exist or is empty: {file_path}"
+
         try:
-            with open(f"db/{cls.__name__}/{entity_id}", "r") as json_file:
-                return json.loads(json_file.read())
-        except FileNotFoundError:
-            return f"invalid {cls.__name__} id"
+            with open(file_path, "r") as json_file:
+                data = json_file.read()
+                return json.loads(data)
+        except json.decoder.JSONDecodeError:
+            return f"invalid JSON: {file_path}"
 
     @classmethod
     def read_all(cls):
@@ -45,7 +50,7 @@ class DBUtils():
         """
         Writes entity data to disk
         """
-        with open(f"db/{cls.__name__}/{entity_id}") as json_file:
+        with open(f"db/{cls.__name__}/{entity_id}", "w") as json_file:
             json_file.write(entity_data)
         return True
 
