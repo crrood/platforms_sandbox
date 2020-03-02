@@ -139,14 +139,11 @@ class ServerUtils():
         return a generic header for json content
         including API key
         """
-        self.logger.info(f"marketplace = {marketplace}")
         if marketplace:
             api_key = self.config["marketplace_api_key"]
         else:
             api_key = self.config["ws_api_key"]
 
-        self.logger.info(self.config["marketplace_api_key"])
-        self.logger.info(api_key)
         return {
             "Content-Type": "application/json",
             "X-API-Key": api_key

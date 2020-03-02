@@ -2,7 +2,7 @@
 from flask import Flask, render_template, send_from_directory, request
 
 # utilities for working with persistent data
-import DBUtils
+from DBUtils import AccountHolders, Accounts
 
 # utilities for sending requests
 from ServerUtils import ServerUtils
@@ -20,15 +20,15 @@ def index():
     server_utils.logger.info("receiving request to /")
     return render_template(
         "template.html",
-        accountHoldersList=DBUtils.get_all_account_holders(),
-        accountsList=DBUtils.get_all_accounts())
+        accountHoldersList=AccountHolders.read_all(),
+        accountsList=Accounts.read_all())
 
 @app.route("/forwardRequest", methods=["POST"])
 def forward_request():
     """
     Forward a POST request from the client to the URL specified
     """
-    json_data = request.get_json(force=True)
+    json_data = request.read_json(force=True)
 
     # extract url from request data
     url = json_data["endpoint"]
@@ -44,13 +44,13 @@ def refresh():
     Query updated data on all stored entities
     """
     account_holders_data = []
-    for account_holder_code in DBUtils.get_account_holders_list():
+    for account_holder_code in AccountHolders.list():
         result = server_utils.send_request(
             ServerUtils.URLS["get_account_holder"],
             {"accountHolderCode": account_holder_code})
         account_holders_data.append(result["response"])
     server_utils.logger.info(account_holders_data)
-    return account_holders_data
+    return {"accountHolders": account_holders_data}
 
 @app.route("/js/<path:path>")
 def serve_js(path):
