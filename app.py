@@ -20,7 +20,8 @@ def index():
     server_utils.logger.info("receiving request to /")
     return render_template(
         "template.html",
-        accountHoldersList=DBUtils.get_all_account_holders())
+        accountHoldersList=DBUtils.get_all_account_holders(),
+        accountsList=DBUtils.get_all_accounts())
 
 @app.route("/forwardRequest", methods=["POST"])
 def forward_request():
@@ -36,6 +37,20 @@ def forward_request():
 
     result = server_utils.send_request(url, json_data)
     return result
+
+@app.route("/refresh")
+def refresh():
+    """
+    Query updated data on all stored entities
+    """
+    account_holders_data = []
+    for account_holder_code in DBUtils.get_account_holders_list():
+        result = server_utils.send_request(
+            ServerUtils.URLS["get_account_holder"],
+            {"accountHolderCode": account_holder_code})
+        account_holders_data.append(result["response"])
+    server_utils.logger.info(account_holders_data)
+    return account_holders_data
 
 @app.route("/js/<path:path>")
 def serve_js(path):

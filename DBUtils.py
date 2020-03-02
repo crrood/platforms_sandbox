@@ -3,28 +3,72 @@ Utilities for working with stored data on accountHolders
 """
 import os, json
 
+  #####################
+ ## GENERAL METHODS ##
+#####################
+def get_entity(entity_type, entity_id):
+    """
+    Return dict from json file for given entity ID
+    """
+    try:
+        with open(f"db/{entity_type}/{entity_id}", "r") as json_file:
+            return json.loads(json_file.read())
+    except FileNotFoundError:
+        return f"invalid {entity_type} id"
+
+def get_entity_list(entity_type):
+    """
+    Return list of all entity ID's stored locally
+    """
+    return os.listdir(f"db/{entity_type}")
+
+def get_all_entities(entity_type):
+    """
+    Return an array of dicts with all stored data for given entity
+    """
+    results = []
+    for entity_id in get_entity_list(entity_type):
+        results.append(get_entity(entity_type, entity_id))
+    return results
+
+  #####################
+ ## ACCOUNT HOLDERS ##
+#####################
+def get_account_holder(account_holder_id):
+    """
+    Return dict from json file for given accountHolder ID
+    """
+    return get_entity("AccountHolders", account_holder_id)
+
+def get_account_holders_list():
+    """
+    Return list of all accountHolder IDs stored locally
+    """
+    return get_entity_list("AccountHolders")
+
 def get_all_account_holders():
     """
     Return an array of dicts with all stored accountHolder data
     """
-    results = []
-    for account_holder_code in get_account_holders_list():
-        results.append(read_account_holder(account_holder_code))
+    return get_all_entities("AccountHolders")
 
-    return results
+  ##############
+ ## ACCOUNTS ##
+##############
+def get_account(account_id):
+    """
+    Return dict from json file for given account ID
+    """
+    return get_entity("Accounts", account_id)
 
-def read_account_holder(account_holder_code):
+def get_accounts_list():
     """
-    Return dict from json file for given accountHolder code
+    Return list of all account IDs stored locally
     """
-    try:
-        with open(f"db/AccountHolders/{account_holder_code}", "r") as json_file:
-            return json.loads(json_file.read())
-    except FileNotFoundError:
-        return "invalid accountHolder code"
+    return get_entity_list("Accounts")
 
-def get_account_holders_list():
+def get_all_accounts():
     """
-    Return list of all accountHolder codes stored locally
+    Return an array of dicts with all stored account data
     """
-    return os.listdir("db/AccountHolders")
+    return get_all_entities("Accounts")

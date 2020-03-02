@@ -15,12 +15,17 @@ from urllib.error import HTTPError
 import configparser
 
 # constants
-ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
 
 class ServerUtils():
     """
     class to be imported by flask app to help send requests
     """
+    ACCEPT_HEADER = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
+    URLS = {
+        "payments": "https://checkout-test.adyen.com/v51/payments",
+        "get_account_holder": "https://cal-test.adyen.com/cal/services/Account/v5/getAccountHolder",
+        "account_holder_balance": "https://cal-test.adyen.com/cal/services/Fund/v5/accountHolderBalance"
+    }
 
     ########################
     #      CONSTRUCTOR     #
@@ -72,14 +77,14 @@ class ServerUtils():
 
         # add accept header if browserInfo is present
         if "browserInfo" in request_dict.keys():
-            request_dict["browserInfo"]["acceptHeader"] = ACCEPT_HEADER
+            request_dict["browserInfo"]["acceptHeader"] = ServerUtils.ACCEPT_HEADER
 
         # encode data
         encoded_data = json.dumps(request_dict).encode("utf8")
 
         # create request object
-        # TODO detect whether a request is a payment or platform operation
-        request = Request(url, encoded_data, self.get_json_header())
+        is_platform_request = url.find("cal-test") > 0
+        request = Request(url, encoded_data, self.get_json_header(is_platform_request))
 
         try:
             # make request to server
@@ -114,7 +119,7 @@ class ServerUtils():
 
         see example_config.ini for file format
         """
-        parser = configparser.ConfigParser()
+        parser = configparser.RawConfigParser()
         parser.read(config_file)
         credentials = parser["config"]
 
@@ -122,7 +127,7 @@ class ServerUtils():
 
         loaded_config["merchant_account"] = credentials["merchantAccount"]
         loaded_config["ws_api_key"] = credentials["webserviceApiKey"]
-        loaded_config["marketplace_api_key"] = credentials["webserviceApiKey"]
+        loaded_config["marketplace_api_key"] = credentials["marketplaceApiKey"]
 
         return loaded_config
 
@@ -134,11 +139,14 @@ class ServerUtils():
         return a generic header for json content
         including API key
         """
+        self.logger.info(f"marketplace = {marketplace}")
         if marketplace:
             api_key = self.config["marketplace_api_key"]
         else:
             api_key = self.config["ws_api_key"]
 
+        self.logger.info(self.config["marketplace_api_key"])
+        self.logger.info(api_key)
         return {
             "Content-Type": "application/json",
             "X-API-Key": api_key
