@@ -13,5 +13,5 @@ document.querySelector("#refreshBtn").addEventListener("click", () => {
 
 
 function handleRefreshCallback(data) {
-  console.log(data);
+  location.reload();
 }

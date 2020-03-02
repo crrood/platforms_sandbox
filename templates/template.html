@@ -25,14 +25,6 @@
   </div>
 {% endblock %}
 
-{% macro accountHolder(accountHolderData) %}
-  <h3>{{ accountHolderData.accountHolderCode }}</h3>
-  {% for account in accountHolderData.accounts %}
-    {{ account }}
-  {% endfor %}
-
-{% endmacro %}
-
 {% block accountHolderBlock %}
   {% for accountHolderData in accountHoldersList %}
     <div class="account-holder">
@@ -40,3 +32,24 @@
     </div>
   {% endfor %}
 {% endblock %}
+
+{% macro accountHolder(accountHolderData) %}
+  <h2>{{ accountHolderData.accountHolderCode }}</h2>
+  <div class="account-holder__property"><b>Entity type:</b> {{ accountHolderData["legalEntity"] }}</div>
+  <div class="account-holder__property"><b>Status:</b> {{ accountHolderData["accountHolderStatus"]["status"] }}</div>
+  <div class="account-holder__property"><b>Payouts allowed:</b> {{ accountHolderData["accountHolderStatus"]["payoutState"]["allowPayout"] }}</div>
+  <div class="account-holder__property"><b>Events:</b> {{ accountHolderData["accountHolderStatus"]["events"] }}</div>
+  <h3>Accounts:</h3>
+  {% for accountData in accountHolderData.accounts %}
+    {{ account(accountsList[accountData["accountCode"]]) }}
+  {% endfor %}
+{% endmacro %}
+
+{% macro account(accountData) %}
+  <div class="account__property"><b>Account code:</b> {{ accountData["accountCode"] }}</div>
+  <div class="account__property"><b>Description:</b> {{ accountData["description"] }}</div>
+  <div class="account__property"><b>Status:</b> {{ accountData["status"] }}</div>
+  <div class="account__property"><b>Balance:</b> {{ accountData["detailBalance"]["balance"] }}</div>
+  <div class="account__property"><b>On-hold balance:</b> {{ accountData["detailBalance"]["onHoldBalance"] }}</div>
+  <div class="account__property"><b>Pending balance:</b> {{ accountData["detailBalance"]["pendingBalance"] }}</div>
+{% endmacro %}

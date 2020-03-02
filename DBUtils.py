@@ -69,3 +69,15 @@ class Accounts(DBUtils):
     """
     Class named after Accounts model
     """
+    @classmethod
+    def read_all(cls):
+        """
+        Accounts are always referenced in the context of an AccountHolder
+        so it's easier to work with them as a dict than list
+        """
+        accounts_list = super().read_all()
+        accounts_dict = {}
+        for account in accounts_list:
+            accounts_dict[account["accountCode"]] = account
+
+        return accounts_dict
