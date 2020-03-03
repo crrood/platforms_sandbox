@@ -81,8 +81,8 @@ def refresh():
             Accounts.write(account["accountCode"], json.dumps(account_data[account["accountCode"]]))
 
     return {
-        "AccountHolders": account_holders_data,
-        "Accounts": account_data
+        "accountHoldersList": account_holders_data,
+        "accountsList": account_data
     }
 
 @app.route("/js/<path:path>")

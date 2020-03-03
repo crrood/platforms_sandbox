@@ -11,6 +11,7 @@ document.querySelector("#refreshBtn").addEventListener("click", () => {
 
 function handleRefreshCallback(data) {
   // location.reload();
-  console.log("refreshed");
-  globals.updateAccountHolders(["updated!"]);
+  globals.accountHoldersList = data.accountHoldersList;
+  globals.accounsList = data.accountsList;
+  globals.updateAccountHolders();
 }

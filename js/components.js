@@ -16,7 +16,7 @@ function AccountHolder(props) {
       <h2>{props.accountHolderData.accountHolderCode}</h2>
       <div className="account-holder__property"><b>Entity type:</b> {props.accountHolderData.legalEntity}</div>
       <div className="account-holder__property"><b>Status:</b> {props.accountHolderData.accountHolderStatus.status}</div>
-      <div className="account-holder__property"><b>Payouts allowed:</b> {props.accountHolderData.accountHolderStatus.payoutState.allowPayout}</div>
+      <div className="account-holder__property"><b>Payouts allowed:</b> {props.accountHolderData.accountHolderStatus.payoutState.allowPayout.toString()}</div>
       <h3>Accounts:</h3>
       {accounts}
     </div>
@@ -40,15 +40,12 @@ function Account(props) {
 }
 
 // re-render after refresh
-globals.updateAccountHolders = accountHoldersList => {
+globals.updateAccountHolders = () => {
   ReactDOM.render(
-    <AccountHolders accountHoldersList={accountHoldersList} />,
+    <AccountHolders accountHoldersList={globals.accountHoldersList} />,
     document.querySelector("#accountHoldersNode")
   )
 }
 
 // render on page load
-ReactDOM.render(
-  <AccountHolders accountHoldersList={globals.accountHoldersList} />,
-  document.querySelector("#accountHoldersNode")
-)
+window.onLoad = globals.updateAccountHolders();
