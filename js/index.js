@@ -1,9 +1,6 @@
 // js utilities
 import * as common from "./common.js";
 
-// object to store global variables
-const globals = {};
-
 document.querySelector("#refreshBtn").addEventListener("click", () => {
   common.AJAXGet(
      "http://localhost:5000/refresh",
@@ -13,5 +10,7 @@ document.querySelector("#refreshBtn").addEventListener("click", () => {
 
 
 function handleRefreshCallback(data) {
-  location.reload();
+  // location.reload();
+  console.log("refreshed");
+  globals.updateAccountHolders(["updated!"]);
 }

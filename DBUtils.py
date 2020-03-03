@@ -17,7 +17,10 @@ class DBUtils():
         """
         Return list of all entity ID's stored locally
         """
-        return os.listdir(f"db/{cls.__name__}")
+        file_list = os.listdir(f"db/{cls.__name__}")
+        if ".DS_Store" in file_list:
+            file_list.remove(".DS_Store")
+        return file_list
 
     @classmethod
     def read(cls, entity_id):

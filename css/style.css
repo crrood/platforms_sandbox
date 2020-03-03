@@ -56,6 +56,40 @@ body.index-page {
 	margin-right: auto;
 }
 
+  /*****************/
+ /* COLUMN LAYOUT */
+/*****************/
+.right-column {
+	position: absolute;
+	width: 49%;
+	top: 0%;
+	left: 50%;
+
+	padding-left: 10px;
+}
+
+.left-column {
+	width: 50% !important;
+	height: 100%;
+	top: 0%;
+	left: 0%;
+
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.left-column h1 {
+	color: #0ABF53;
+}
+
+body.dark .right-column {
+	color: #222;
+}
+
+.fixed {
+	position: fixed;
+}
+
   /******************/
  /* OUTPUT SECTION */
 /******************/
@@ -120,22 +154,29 @@ body.dark .output-subtitle {
   /****************/
  /* FORM STYLING */
 /****************/
-.client-form {
-	display: inline-block;
-
-	padding: 10px;
-	margin-left: auto;
-	margin-right: auto;
+.split-payment-form {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 20px;
+	padding-top: 0px;
 
 	border: 2px solid;
 	border-radius: 3px;
 }
 
-.client-form input[type=text] {
+.split-payment-form__split {
+	display: inline-block;
+
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.split-payment-form__split input[type=text] {
 	float: right;
 }
 
-.client-form label {
+.split-payment-form__split label {
 	float: center;
 	margin-right: 5px;
 }
@@ -187,44 +228,13 @@ button:disabled {
 	margin: 10px;
 }
 
-  /*****************/
- /* COLUMN LAYOUT */
-/*****************/
-.right-column {
-	position: absolute;
-	width: 49%;
-	top: 0%;
-	left: 50%;
-
-	padding-left: 10px;
-}
-
-.left-column {
-	width: 50% !important;
-	height: 100%;
-	top: 0%;
-	left: 0%;
-
-	padding-left: 10px;
-	padding-right: 10px;
-}
-
-.left-column h1 {
-	color: #0ABF53;
-}
-
-body.dark .right-column {
-	color: #222;
-}
-
-.fixed {
-	position: fixed;
-}
-
 	/*******************/
  /* ACCOUNT HOLDERS */
 /*******************/
 .account-holder {
-	border: 1px solid black;
-	padding: 10px;
+	padding: 20px;
+	padding-top: 0px;
+
+	border: 2px solid black;
+	border-radius: 3px;
 }

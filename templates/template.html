@@ -6,50 +6,22 @@
 {% endmacro %}
 
 {% block paymentForm %}
-  <div>
-    <h3>Make a split payment</h3>
+  <div class="split-payment-form">
+    <h2>Make a split payment</h2>
     <div class="">
-      <div class="client-form">
+      <div class="split-payment-form__split">
         <p><b>Account Holder Split</b></p>
         {{ input("SplitAmount", "1000", "Amount") }}
         {{ input("SplitCurrency", "USD", "Currency") }}
         {{ input("AccountCode", "") }}
       </div>
-      <div class="client-form">
+      <div class="split-payment-form__split">
         <p><b>Liable Account Split</b></p>
         {{ input("CommissionAmount", "1000", "Amount") }}
         {{ input("CommissionCurrency", "USD", "Currency") }}
+        {{ input("AccountCode", "") }}
       </div>
     </div>
     <button id="payBtn">Pay</button>
   </div>
 {% endblock %}
-
-{% block accountHolderBlock %}
-  {% for accountHolderData in accountHoldersList %}
-    <div class="account-holder">
-      {{ accountHolder(accountHolderData) }}
-    </div>
-  {% endfor %}
-{% endblock %}
-
-{% macro accountHolder(accountHolderData) %}
-  <h2>{{ accountHolderData.accountHolderCode }}</h2>
-  <div class="account-holder__property"><b>Entity type:</b> {{ accountHolderData["legalEntity"] }}</div>
-  <div class="account-holder__property"><b>Status:</b> {{ accountHolderData["accountHolderStatus"]["status"] }}</div>
-  <div class="account-holder__property"><b>Payouts allowed:</b> {{ accountHolderData["accountHolderStatus"]["payoutState"]["allowPayout"] }}</div>
-  <div class="account-holder__property"><b>Events:</b> {{ accountHolderData["accountHolderStatus"]["events"] }}</div>
-  <h3>Accounts:</h3>
-  {% for accountData in accountHolderData.accounts %}
-    {{ account(accountsList[accountData["accountCode"]]) }}
-  {% endfor %}
-{% endmacro %}
-
-{% macro account(accountData) %}
-  <div class="account__property"><b>Account code:</b> {{ accountData["accountCode"] }}</div>
-  <div class="account__property"><b>Description:</b> {{ accountData["description"] }}</div>
-  <div class="account__property"><b>Status:</b> {{ accountData["status"] }}</div>
-  <div class="account__property"><b>Balance:</b> {{ accountData["detailBalance"]["balance"] }}</div>
-  <div class="account__property"><b>On-hold balance:</b> {{ accountData["detailBalance"]["onHoldBalance"] }}</div>
-  <div class="account__property"><b>Pending balance:</b> {{ accountData["detailBalance"]["pendingBalance"] }}</div>
-{% endmacro %}
