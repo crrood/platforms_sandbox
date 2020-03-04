@@ -238,3 +238,11 @@ button:disabled {
 	border: 2px solid black;
 	border-radius: 3px;
 }
+
+.balance {
+	margin-left: 20px;
+}
+
+.event {
+	margin-left: 20px;
+}
