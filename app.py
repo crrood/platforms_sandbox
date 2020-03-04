@@ -68,6 +68,7 @@ def refresh():
     # note that there is not a single API call to get all information
     # so you need to join the /getAccountHolder response with
     # the /accountHolderBalance response
+    account_holder_balance_results = []
     for account_holder_code in AccountHolders.list():
         result = server_utils.send_request(
             ServerUtils.URLS["account_holder_balance"],
@@ -80,9 +81,13 @@ def refresh():
             # write to disk
             Accounts.write(account["accountCode"], json.dumps(account_data[account["accountCode"]]))
 
+        # store raw result for outputting to client
+        account_holder_balance_results.append(result["response"])
+
     return {
         "accountHoldersList": account_holders_data,
-        "accountsList": account_data
+        "accountsList": account_data,
+        "accountHolderBalancesList": account_holder_balance_results
     }
 
 @app.route("/js/<path:path>")

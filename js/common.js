@@ -7,13 +7,12 @@ export const FORM_ENCODED_HEADER = { "Content-Type": "application/x-www-form-url
 export const JSON_ENCODED_HEADER = { "Content-Type": "application/json" };
 
 // local server URLs
-export const SERVER_URL = "http://localhost:8000/cgi-bin/server.py";
-export const SEND_POST_MESSAGE = "http://localhost:8000/cgi-bin/send_post_message.py";
-export const RETURN_URL = "http://localhost:8000/cgi-bin/echo.py";
+export const SERVER_URL = "http://localhost:5000";
 
 // API versions
 const CHECKOUT_VERSION = "v50";
 const PAL_VERSION = "v49";
+const CAL_VERSION = "v5";
 
 // Adyen endpoints
 export const endpoints = {
@@ -22,7 +21,9 @@ export const endpoints = {
 	"payments": "https://checkout-test.adyen.com/" + CHECKOUT_VERSION + "/payments",
 	"authorise": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise",
 	"authorise3d": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise3d",
-	"authorise3ds2": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise3ds2"
+	"authorise3ds2": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise3ds2",
+	"getAccountHolder": "https://cal-test.adyen.com/cal/services/Account/" + CAL_VERSION + "/getAccountHolder",
+	"accountHolderBalance": "https://cal-test.adyen.com/cal/services/Account/" + CAL_VERSION + "/accountHolderBalance",
 };
 
 // method to send AJAX POST requests
