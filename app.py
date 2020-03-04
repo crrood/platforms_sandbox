@@ -31,7 +31,7 @@ def forward_request():
     """
     Forward a POST request from the client to the URL specified
     """
-    json_data = request.read_json(force=True)
+    json_data = request.get_json(force=True)
 
     # extract url from request data
     url = json_data["endpoint"]

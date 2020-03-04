@@ -11,15 +11,15 @@
     <div class="">
       <div class="split-payment-form__split">
         <p><b>Account Holder Split</b></p>
-        {{ input("SplitAmount", "1000", "Amount") }}
-        {{ input("SplitCurrency", "USD", "Currency") }}
-        {{ input("AccountCode", "") }}
+        {{ input("splitAmount", "900", "Amount") }}
+        {{ input("splitCurrency", "USD", "Currency") }}
+        {{ input("splitAccountCode", accountsList.keys()|first, "Account code") }}
       </div>
       <div class="split-payment-form__split">
         <p><b>Liable Account Split</b></p>
-        {{ input("CommissionAmount", "1000", "Amount") }}
-        {{ input("CommissionCurrency", "USD", "Currency") }}
-        {{ input("AccountCode", "") }}
+        {{ input("commissionAmount", "100", "Amount") }}
+        {{ input("commissionCurrency", "USD", "Currency") }}
+        {{ input("commissionAccountCode", "", "Account code") }}
       </div>
     </div>
     <button id="payBtn">Pay</button>
