@@ -32,9 +32,9 @@ function AccountHolder(props) {
 function Event(props) {
   return (
     <div className="event">
-      <div className="event__property">Type: {props.eventData.event}</div>
-      <div className="event__property">Execution Date: {props.eventData.executionDate}</div>
-      <div className="event__property">Reason: {props.eventData.reason}</div>
+      <div className="event__property"><b>Type: </b>{props.eventData.event}</div>
+      <div className="event__property"><b>Execution Date: </b>{props.eventData.executionDate}</div>
+      <div className="event__property"><b>Reason: </b>{props.eventData.reason}</div>
     </div>
   )
 }
