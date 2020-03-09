@@ -91,16 +91,13 @@ class ServerUtils():
             response = urlopen(request)
             result = response.read()
 
-            # format and return response
-            if "application/json" in response.getheader("content-type"):
-                result = json.loads(result.decode("utf8"))
-            elif isinstance(result, bytes):
-                result = result.decode("utf8")
-
-            self.logger.info("response data: %s", result)
         except HTTPError as e:
-            self.logger.warning("HTTPError")
-            result = "{}".format(e)
+            self.logger.warning(e)
+            result = e.read()
+
+        # format and return response
+        result = json.loads(result)
+        self.logger.info("response data: %s", result)
 
         client_response = {}
         client_response["request"] = request_dict

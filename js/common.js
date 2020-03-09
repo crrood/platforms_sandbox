@@ -16,14 +16,17 @@ const CAL_VERSION = "v5";
 
 // Adyen endpoints
 export const endpoints = {
-	"paymentMethods": "https://checkout-test.adyen.com/" + CHECKOUT_VERSION + "/paymentMethods",
-	"paymentsDetails": "https://checkout-test.adyen.com/" + CHECKOUT_VERSION + "/payments/details",
 	"payments": "https://checkout-test.adyen.com/" + CHECKOUT_VERSION + "/payments",
+	"paymentsDetails": "https://checkout-test.adyen.com/" + CHECKOUT_VERSION + "/payments/details",
+	"paymentMethods": "https://checkout-test.adyen.com/" + CHECKOUT_VERSION + "/paymentMethods",
+
 	"authorise": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise",
 	"authorise3d": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise3d",
 	"authorise3ds2": "https://pal-test.adyen.com/pal/servlet/Payment/" + PAL_VERSION + "/authorise3ds2",
+
 	"getAccountHolder": "https://cal-test.adyen.com/cal/services/Account/" + CAL_VERSION + "/getAccountHolder",
 	"accountHolderBalance": "https://cal-test.adyen.com/cal/services/Account/" + CAL_VERSION + "/accountHolderBalance",
+	"transferFunds": "https://cal-test.adyen.com/cal/services/Fund/" + CAL_VERSION + "/transferFunds"
 };
 
 // method to send AJAX POST requests

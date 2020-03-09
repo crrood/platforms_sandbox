@@ -29,6 +29,15 @@ body.index-page {
 	font-size: 1.2em;
 }
 
+.pane {
+	padding: 20px;
+	padding-top: 0px;
+	margin-bottom: 10px;
+
+	border: 2px solid black;
+	border-radius: 3px;
+}
+
 ::selection {
 	background: #A7A7A7;
 }
@@ -156,31 +165,25 @@ body.dark .output-subtitle {
   /****************/
  /* FORM STYLING */
 /****************/
-.split-payment-form {
-	margin-bottom: 10px;
-	padding: 20px;
-	padding-top: 0px;
-
-	border: 2px solid;
-	border-radius: 3px;
-}
-
-.split-payment-form__split {
+form {
 	display: inline-block;
 
 	padding: 10px;
-	padding-top: 0px;
 	margin-left: auto;
 	margin-right: auto;
 
 	border: 1px ridge black;
 }
 
-.split-payment-form__split input[type=text] {
+form p {
+	margin-top: 10px;
+}
+
+form input[type=text] {
 	float: right;
 }
 
-.split-payment-form__split label {
+form label {
 	float: center;
 	margin-right: 5px;
 }
@@ -235,15 +238,6 @@ button:disabled {
 	/*******************/
  /* ACCOUNT HOLDERS */
 /*******************/
-.account-holder {
-	padding: 20px;
-	padding-top: 0px;
-	margin-bottom: 10px;
-
-	border: 2px solid black;
-	border-radius: 3px;
-}
-
 .account {
 	margin-bottom: 10px;
 	padding: 10px;

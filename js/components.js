@@ -15,7 +15,7 @@ function AccountHolder(props) {
     <Event key={props.accountHolderData.accountHolderCode + "Event" + i} eventData={eventData} />
   )
   return (
-    <div className="account-holder">
+    <div className="pane account-holder">
       <h2>{props.accountHolderData.accountHolderCode}</h2>
       <div className="account-holder__property"><b>Entity type:</b> {props.accountHolderData.legalEntity}</div>
       <div className="account-holder__property"><b>Status:</b> {props.accountHolderData.accountHolderStatus.status}</div>

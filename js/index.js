@@ -75,10 +75,36 @@ function makeSplitPayment() {
 }
 
 function handlePaymentsCallback(data) {
-  console.log(data);
-
   common.output(data.request, "/payments request", data.endpoint);
   common.output(data.response, "/payments response");
 }
 
+function doTransferFunds() {
+  const request = {
+  	destinationAccountCode: document.querySelector("#destinationAccountCodeInput").value,
+  	sourceAccountCode: document.querySelector("#sourceAccountCodeInput").value,
+  	amount: {
+  		currency: document.querySelector("#transferCurrencyInput").value,
+  		value: document.querySelector("#transferAmountInput").value
+  	},
+  	merchantReference: "AfP demo transfer",
+  	transferCode: "CREDIT_EXAMPLE" // hardcoded value which is defined at Platform creation
+  };
+
+  // URL to send request to
+  request.endpoint = common.endpoints.transferFunds;
+
+  common.AJAXPost(
+    common.SERVER_URL + "/forwardRequest",
+    handleTransferFundsCallback,
+    request
+  )
+}
+
+function handleTransferFundsCallback(data) {
+  common.output(data.request, "/transferFunds request", data.endpoint);
+  common.output(data.response, "/tranferFunds response");
+}
+
 document.querySelector("#payBtn").addEventListener("click", makeSplitPayment);
+document.querySelector("#transferFundsBtn").addEventListener("click", doTransferFunds);
