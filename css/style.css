@@ -169,8 +169,11 @@ body.dark .output-subtitle {
 	display: inline-block;
 
 	padding: 10px;
+	padding-top: 0px;
 	margin-left: auto;
 	margin-right: auto;
+
+	border: 1px ridge black;
 }
 
 .split-payment-form__split input[type=text] {
@@ -243,7 +246,7 @@ button:disabled {
 
 .account {
 	margin-bottom: 10px;
-	padding: 5px;
+	padding: 10px;
 
 	border: 1px ridge black;
 }

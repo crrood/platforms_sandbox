@@ -10,13 +10,13 @@
     <h2>Make a split payment</h2>
     <div class="">
       <div class="split-payment-form__split">
-        <p><b>Account Holder Split</b></p>
+        <p><b>Marketplace Split</b></p>
         {{ input("splitAmount", "900", "Amount") }}
         {{ input("splitCurrency", "USD", "Currency") }}
         {{ input("splitAccountCode", accountsList.keys()|first, "Account code") }}
       </div>
       <div class="split-payment-form__split">
-        <p><b>Liable Account Split</b></p>
+        <p><b>Commission Split</b></p>
         {{ input("commissionAmount", "100", "Amount") }}
         {{ input("commissionCurrency", "USD", "Currency") }}
         {{ input("commissionAccountCode", "", "Account code") }}

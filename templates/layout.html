@@ -24,8 +24,11 @@
 
   <div class="right-column">
 
-    <!-- Component to send pay-ins -->
+    <!-- Template to send pay-ins -->
     {% block paymentForm %}{% endblock %}
+
+    <!-- Template to perform fund transfers -->
+    {% block tranferFundsForm %}{% endblock %}
 
     <!-- List of accountHolders -->
     <div id="accountHoldersNode"></div>
