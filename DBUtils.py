@@ -18,8 +18,10 @@ class DBUtils():
         Return list of all entity ID's stored locally
         """
         file_list = os.listdir(f"db/{cls.__name__}")
-        if ".DS_Store" in file_list:
-            file_list.remove(".DS_Store")
+
+        for file_name in [".DS_Store", ".gitignore"]:
+            if file_name in file_list:
+                file_list.remove(file_name)
         return file_list
 
     @classmethod

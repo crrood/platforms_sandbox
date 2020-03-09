@@ -1,1 +1,0 @@
-{"accountCode": "146755299", "description": "TransactionAccount", "payoutSchedule": {"schedule": "DAILY"}, "status": "Active", "detailBalance": {"balance": [], "onHoldBalance": [], "pendingBalance": [{"currency": "USD", "value": 3200}]}}
